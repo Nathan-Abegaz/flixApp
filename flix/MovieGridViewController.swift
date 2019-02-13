@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MovieGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -30,6 +31,8 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 
                 self.movies = dataDictionary["results"] as! [[String:Any]]
+                
+                self.collectionView.reloadData()
                 }
         }
         task.resume()
@@ -41,7 +44,14 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieGridCell, for: indexPath) as! MovieGridCell;
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieGridCell", for: indexPath) as! MovieGridCell;
+        
+        let movie  = movies[indexPath.item]
+        let baseUrl = "https://image.tmdb.org/t/p/w185"
+        let posterPath = movie["poster_path"] as! String
+        let posterUrl = URL(string: baseUrl + posterPath)
+        
+        cell.posterView.af_setImage(withURL: posterUrl!)
         
         return cell;
         
