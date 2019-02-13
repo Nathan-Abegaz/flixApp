@@ -40,7 +40,12 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
         return movies.count
     }
     
- 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieGridCell, for: indexPath) as! MovieGridCell;
+        
+        return cell;
+        
+    }
 
     /*
     // MARK: - Navigation
