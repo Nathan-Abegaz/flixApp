@@ -12,7 +12,12 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
  
 
     @IBOutlet weak var tableView: UITableView!
+    
+    // Get the array of movies
+    // Store the movies in a property to use elsewhere
+    // Reload your table view data
     var movies = [[String: Any]]()
+    
     override func viewDidLoad() {
        tableView.dataSource = self
         tableView.delegate = self
@@ -31,9 +36,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.movies = dataDictionary["results"] as! [[String:Any]]
                 
                 self.tableView.reloadData()
-                //TODO: Get the array of movies
-                // TODO: Store the movies in a property to use elsewhere
-                // TODO: Reload your table view data
+                
+               
                 
             }
         }
@@ -64,14 +68,32 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // In a storyboard-based application, you will often want to do a little preparation before navigation
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        //Find the selectetd movie
+        let cell = sender as! UITableViewCell
+        // Index of the movie from array
+        let indexPath = tableView.indexPath(for: cell)!
+        //Get the movie from the list
+        let movie = movies[indexPath.row]
+        
+        //Pass the selected movie to the details controller
+        
+        
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
+    
+    
+    
+    
 
 }
