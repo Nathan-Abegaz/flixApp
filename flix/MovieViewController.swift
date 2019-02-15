@@ -21,6 +21,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
        tableView.dataSource = self
         tableView.delegate = self
+        
+        
+        
         super.viewDidLoad()
         
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
